@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ZihoSettings": {
+      "commandName": "Project",
+      "commandLineArgs": "n"
+    }
+  }
+}
