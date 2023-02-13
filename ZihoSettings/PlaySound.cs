@@ -1,48 +1,38 @@
 ﻿using System;
 using System.Configuration;
-using System.Threading;
-using System.Collections.Generic;
-using System.IO;
-using WMPLib;
-using System.Text.RegularExpressions;
-using System.IO.Enumeration;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using WMPLib;
 
 public class PlaySound
 {
-	public static void Play()
-	{
-		int h = DateTime.Now.Hour;
-		string soundFile = GetSoundFile(h);
-		if (soundFile != "noFile")
-		{
-            WmpPlay(soundFile);
-        }
-	}
+    WindowsMediaPlayer mp;
 
-	private static string GetSoundFile(int hour)
-	{
-        string key = "key" + hour.ToString();
-        string? file = ConfigurationManager.AppSettings[key];
-		if (file is not null) return file;
-		else return "noFile";
+    public PlaySound()
+    {
+        mp = new WindowsMediaPlayer();
+        string soundFile = GetSoundFile();
+        mp.URL = soundFile;
+        mp.MediaChange += Mp_MediaChange;
     }
 
-	private static void WmpPlay(string soundFile)
-	{
-		Debug.WriteLine(soundFile);
+    private string GetSoundFile()
+    {
+        int h = DateTime.Now.Hour;
+        string key = "key" + h.ToString();
+        string? file = ConfigurationManager.AppSettings[key];
+        if (file is not null) return file;
+        else return "noFile";
+    }
 
-		WindowsMediaPlayer mp = new WindowsMediaPlayer();
-		mp.settings.volume = 20;
+    public void Play()
+    {
+        mp.controls.play();
+    }
 
-        mp.URL = soundFile;
-
-		//メディアの読込を待つ
-		Thread.Sleep(1000);
-
-		mp.controls.play();
-        double t = mp.currentMedia.duration;
-
-        Thread.Sleep((int) t *1000 + 1000);
-	}
+    private static void Mp_MediaChange(object Item)
+    {
+        //throw new NotImplementedException();
+    }
 }
+
