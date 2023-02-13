@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZihoSettings", "ZihoSettings\ZihoSettings.csproj", "{1DA4BEB5-D328-4A69-B85B-B5AF789C7608}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaySound", "PlaySound\PlaySound.csproj", "{26D3C0C2-2C24-47AD-9E14-2CBA31E31A5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1DA4BEB5-D328-4A69-B85B-B5AF789C7608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA4BEB5-D328-4A69-B85B-B5AF789C7608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA4BEB5-D328-4A69-B85B-B5AF789C7608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D3C0C2-2C24-47AD-9E14-2CBA31E31A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D3C0C2-2C24-47AD-9E14-2CBA31E31A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D3C0C2-2C24-47AD-9E14-2CBA31E31A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D3C0C2-2C24-47AD-9E14-2CBA31E31A5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
