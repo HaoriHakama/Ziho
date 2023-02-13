@@ -3,7 +3,11 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+	<PublishShingleFile>true</PublishShingleFile>
+	<SelfContained>true</SelfContained>
     <ImplicitUsings>enable</ImplicitUsings>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<PublishReadyToRun>true</PublishReadyToRun>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
