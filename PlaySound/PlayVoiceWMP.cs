@@ -84,9 +84,6 @@ public class PlayVoiceWMP
             case "noFile":
                 Debug.WriteLine("setting.jsonにファイルの設定がありません");
                 break;
-            case "sleep":
-                Debug.WriteLine("おやすみモードです");
-                break;
             default:
                 Debug.WriteLine("設定されたvoiceファイルが存在しません");
                 break;
