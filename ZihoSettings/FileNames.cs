@@ -27,7 +27,6 @@ public class FileNames
     string _settingFile = "setting.json";
     string[] _fileList = new string[24];
     VoiceSettings _voiceSettings;
-    string _taskName;
 
     public FileNames()
     {
@@ -41,7 +40,6 @@ public class FileNames
                 else _fileList[i] = "noFile";
             }
         }
-        _taskName = _voiceSettings.TaskName;
     }
 
     internal string GetFileList(int hour)
