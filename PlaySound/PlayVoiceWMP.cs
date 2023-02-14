@@ -43,7 +43,7 @@ public class PlayVoiceWMP
     //setting.jsonを参照し設定を読み込む
     private void LoadSettings()
     {
-        string settingFile = "setting.json";
+        string settingFile = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + "/setting.json";
         string jsonstr = File.ReadAllText(settingFile);
         VoiceSettings voiceSettings = JsonSerializer.Deserialize<VoiceSettings>(jsonstr)!;
 
