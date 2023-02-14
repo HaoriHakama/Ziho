@@ -28,6 +28,9 @@ public class ChangeSettings
     string _settingFile = "setting.json";
     string[] _fileList = new string[24];
     VoiceSettings _voiceSettings;
+    public bool sleepMode { get; set; }
+    public int sleepModeStart { get; set; }
+    public int sleepModeEnd { get; set; }
 
     public ChangeSettings()
     {
@@ -41,6 +44,49 @@ public class ChangeSettings
                 else _fileList[i] = "noFile";
             }
         }
+        this.sleepModeStart = 0;
+        this.sleepModeEnd = 0;
+        this.sleepMode = IsSleepModeOn();
+    }
+
+    internal bool IsSleepModeOn()
+    {
+        bool sleepMode = false;
+        if (_voiceSettings.Sleep[0] != _voiceSettings.Sleep[23])
+        {
+            if (_voiceSettings.Sleep[0] == true)
+            {
+                sleepMode = true;
+                this.sleepModeStart = 0;
+            }
+            else
+            {
+                sleepMode = true;
+                this.sleepModeEnd = 0;
+            }
+        }
+
+        for (int i=0; i<23; i++)
+        {
+            if (_voiceSettings.Sleep[i] != _voiceSettings.Sleep[i + 1])
+            {
+                sleepMode = true;
+                if (_voiceSettings.Sleep[i] == false)
+                {
+                    this.sleepModeStart = i + 1;
+                }
+                else
+                {
+                    this.sleepModeStart = i;
+                }
+            }
+        }
+        return sleepMode;
+    }
+
+    internal int GetVolume()
+    {
+        return _voiceSettings.Volume;
     }
 
     internal void SetVolume(int volume)
@@ -48,23 +94,23 @@ public class ChangeSettings
         _voiceSettings.Volume = volume;
     }
 
-    internal void SetSleepMode(int start, int end)
+    internal void SetSleepMode()
     {
-        if (start == end)
+        if (this.sleepModeStart == this.sleepModeEnd)
         {
             for (int i = 0; i < 24; i++)
             {
                 _voiceSettings.Sleep[i] = false;
             }
-            _voiceSettings.Sleep[start] = true;
+            _voiceSettings.Sleep[this.sleepModeStart] = true;
         }
-        else if (start < end)
+        else if (this.sleepModeStart < this.sleepModeEnd)
         {
             for (int i = 0; i < 24; i++)
             {
                 _voiceSettings.Sleep[i] = false;
             }
-            for (int i=start; i<=end; i++)
+            for (int i=this.sleepModeStart; i<=this.sleepModeEnd; i++)
             {
                 _voiceSettings.Sleep[i] = true;
             }
@@ -75,7 +121,7 @@ public class ChangeSettings
             {
                 _voiceSettings.Sleep[i] = true;
             }
-            for (int i=end; i<=start; i++)
+            for (int i=this.sleepModeEnd; i<=this.sleepModeStart; i++)
             {
                 _voiceSettings.Sleep[i] = false;
             }
@@ -149,7 +195,7 @@ public class ChangeSettings
     }
 
     //setting.jsonに音声設定を保存する
-    internal void SaveConfigFileList()
+    internal void SaveSettings()
     {
         for (int i = 0; i < 24; i++)
         {
@@ -166,7 +212,7 @@ public class ChangeSettings
         File.WriteAllText(_settingFile, jsonStr);
     }
 
-    public void DeleteConfigFileList()
+    public void DeleteSettings()
     {
         for (int i = 0; i < 24; i++)
         {
