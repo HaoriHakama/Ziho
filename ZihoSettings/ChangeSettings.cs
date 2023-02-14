@@ -229,7 +229,7 @@ public class ChangeSettings
         dt.AddHours(1);
         string t = dt.ToString("HH");
         string exeFile = Environment.CurrentDirectory + "/PlayVoice.exe";
-        string command = $"/k schtasks /create /tn \"{_voiceSettings.TaskName}\" /tr \"{exeFile}\" /sc hourly /st {t}:00 /f";
+        string command = $"/k schtasks /create /tn \"{_voiceSettings.TaskName}\" /tr {exeFile} /sc hourly /st {t}:00 /f";
         ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", command);
         Process.Start(psi);
     }
