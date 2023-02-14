@@ -14,21 +14,22 @@ public class VoiceSettings
     public int Volume { get; set; }
     public string? FolderPath { get; set; }
     public string[] VoicePath { get; set; }
-    public bool[]? Sleep { get; set; }
+    public bool[] Sleep { get; set; }
 
     public VoiceSettings()
     {
         this.TaskName = "ZihoHH";
         this.VoicePath = new string[24];
+        this.Sleep = new bool[24];
     }
 }
-public class FileNames
+public class ChangeSettings
 {
     string _settingFile = "setting.json";
     string[] _fileList = new string[24];
     VoiceSettings _voiceSettings;
 
-    public FileNames()
+    public ChangeSettings()
     {
         string jsonstr = File.ReadAllText(this._settingFile);
         this._voiceSettings = JsonSerializer.Deserialize<VoiceSettings>(jsonstr)!;
@@ -40,6 +41,58 @@ public class FileNames
                 else _fileList[i] = "noFile";
             }
         }
+    }
+
+    internal void SetVolume(int volume)
+    {
+        _voiceSettings.Volume = volume;
+    }
+
+    internal void SetSleepMode(int start, int end)
+    {
+        if (start == end)
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                _voiceSettings.Sleep[i] = false;
+            }
+            _voiceSettings.Sleep[start] = true;
+        }
+        else if (start < end)
+        {
+            for (int i = 0; i < 24; i++)
+            {
+                _voiceSettings.Sleep[i] = false;
+            }
+            for (int i=start; i<=end; i++)
+            {
+                _voiceSettings.Sleep[i] = true;
+            }
+        }
+        else
+        {
+            for (int i=0; i<24; i++)
+            {
+                _voiceSettings.Sleep[i] = true;
+            }
+            for (int i=end; i<=start; i++)
+            {
+                _voiceSettings.Sleep[i] = false;
+            }
+        }
+    }
+
+    internal void DleteSleepMode()
+    {
+        for (int i = 0; i < 24; i++)
+        {
+            _voiceSettings.Sleep[i] = false;
+        }
+    }
+
+    internal void SetTaskName(string taskName)
+    {
+        _voiceSettings.TaskName = taskName;
     }
 
     internal string GetFileList(int hour)
