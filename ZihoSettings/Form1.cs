@@ -11,6 +11,10 @@ namespace ZihoSettings
             this.fileNames = new ChangeSettings();
             this.soundFileTextBox = new TextBox[24] { textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9, textBox10, textBox11, textBox12, textBox13, textBox14, textBox15, textBox16, textBox17, textBox18, textBox19, textBox20, textBox21, textBox22, textBox23, textBox24, textBox25, textBox26 }; ;
             ShowALLFileNames();
+            if (this.fileNames.sleepMode == true) checkBox1.CheckState = CheckState.Checked;
+            numericUpDown1.Value = this.fileNames.GetVolume();
+            numericUpDown2.Value = this.fileNames.sleepModeStart;
+            numericUpDown3.Value = this.fileNames.sleepModeEnd;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -192,26 +196,48 @@ namespace ZihoSettings
         //音声設定を保存
         private void button27_Click(object sender, EventArgs e)
         {
-            fileNames.SaveConfigFileList();
+            fileNames.SetVolume((int)numericUpDown1.Value);
+            if (checkBox1.CheckState == CheckState.Checked)
+            {
+                fileNames.sleepModeStart = (int)numericUpDown2.Value;
+                fileNames.sleepModeEnd = (int)numericUpDown3.Value;
+                fileNames.SetSleepMode();
+            }
+            else
+            {
+                fileNames.DleteSleepMode();
+            }
+            fileNames.SaveSettings();
         }
 
         //音声設定を削除
         private void button28_Click(object sender, EventArgs e)
         {
-            fileNames.DeleteConfigFileList();
+            checkBox1.CheckState = CheckState.Unchecked;
+            numericUpDown1.Value = 20;
+            fileNames.SetVolume((int)numericUpDown1.Value);
+            numericUpDown2.Value = 0;
+            numericUpDown3.Value = 0;
+            fileNames.DleteSleepMode();
+            fileNames.DeleteSettings();
             ShowALLFileNames();
         }
 
         //タスクスケジューラに時報を設定
         private void button29_Click(object sender, EventArgs e)
         {
-            ChangeSettings.SetZiho();
+            this.fileNames.SetZiho();
         }
 
         //タスクスケジューラから時報を削除
         private void button30_Click(object sender, EventArgs e)
         {
-            ChangeSettings.DeleteZiho();
+            this.fileNames.DeleteZiho();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
