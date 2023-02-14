@@ -3,12 +3,12 @@ namespace ZihoSettings
     public partial class Form1 : Form
     {
         static string? refFolderPath;
-        FileNames fileNames;
+        ChangeSettings fileNames;
         TextBox[] soundFileTextBox;
         public Form1()
         {
             InitializeComponent();
-            this.fileNames = new FileNames();
+            this.fileNames = new ChangeSettings();
             this.soundFileTextBox = new TextBox[24] { textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9, textBox10, textBox11, textBox12, textBox13, textBox14, textBox15, textBox16, textBox17, textBox18, textBox19, textBox20, textBox21, textBox22, textBox23, textBox24, textBox25, textBox26 }; ;
             ShowALLFileNames();
         }
@@ -205,13 +205,13 @@ namespace ZihoSettings
         //タスクスケジューラに時報を設定
         private void button29_Click(object sender, EventArgs e)
         {
-            FileNames.SetZiho();
+            ChangeSettings.SetZiho();
         }
 
         //タスクスケジューラから時報を削除
         private void button30_Click(object sender, EventArgs e)
         {
-            FileNames.DeleteZiho();
+            ChangeSettings.DeleteZiho();
         }
     }
 }
