@@ -205,12 +205,13 @@ namespace ZihoSettings
         //タスクスケジューラに時報を設定
         private void button29_Click(object sender, EventArgs e)
         {
-            ControlCMD.SetZiho();
+            FileNames.SetZiho();
         }
 
+        //タスクスケジューラから時報を削除
         private void button30_Click(object sender, EventArgs e)
         {
-            ControlCMD.DeleteZiho();
+            FileNames.DeleteZiho();
         }
     }
 }

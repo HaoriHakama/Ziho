@@ -10,7 +10,7 @@ using System.Text.Json;
 //setting.json
 public class VoiceSettings
 {
-    public string? TaskName { get; set; }
+    public string TaskName { get; set; }
     public int Volume { get; set; }
     public string? FolderPath { get; set; }
     public string[] VoicePath { get; set; }
@@ -18,6 +18,7 @@ public class VoiceSettings
 
     public VoiceSettings()
     {
+        this.TaskName = "ZihoHH";
         this.VoicePath = new string[24];
     }
 }
@@ -26,6 +27,7 @@ public class FileNames
     string _settingFile = "setting.json";
     string[] _fileList = new string[24];
     VoiceSettings _voiceSettings;
+    string _taskName;
 
     public FileNames()
     {
@@ -39,6 +41,7 @@ public class FileNames
                 else _fileList[i] = "noFile";
             }
         }
+        _taskName = _voiceSettings.TaskName;
     }
 
     internal string GetFileList(int hour)
@@ -121,5 +124,23 @@ public class FileNames
         }
         string jsonStr = JsonSerializer.Serialize(_voiceSettings);
         File.WriteAllText(_settingFile, jsonStr);
+    }
+
+    internal void SetZiho()
+    {
+        DateTime dt = DateTime.Now;
+        dt.AddHours(1);
+        string t = dt.ToString("HH");
+        string exeFile = Environment.CurrentDirectory + "/PlayVoice.exe";
+        string command = $"/k schtasks /create /tn \"{_voiceSettings.TaskName}\" /tr \"{exeFile}\" /sc hourly /st {t}:00 /f";
+        ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", command);
+        Process.Start(psi);
+    }
+
+    internal void DeleteZiho()
+    {
+        string command = $"/k schtasks /delete /tn \"{_voiceSettings.TaskName}\" /f";
+        ProcessStartInfo psi2 = new ProcessStartInfo("cmd.exe", command);
+        Process.Start(psi2);
     }
 }
