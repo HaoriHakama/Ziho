@@ -10,7 +10,7 @@
 このアプリは時報の設定をGUIでサポートします 
 
 
-# Ziho-Haihu.zipの内容物
+# 内容物
 ・ZihoSettings.exe 
 
   ->時報を設定するGUIアプリ 
